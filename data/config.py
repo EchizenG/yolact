@@ -128,6 +128,21 @@ dataset_base = Config({
     'label_map': None
 })
 
+
+my_custom_dataset = dataset_base.copy({
+    'name': 'OSD test',
+
+    'train_images': './data/OSD_coco/',
+    'train_info':   './data/OSD_coco/annotations.json',
+
+    'valid_images': './data/OSD_coco/',
+    'valid_info':   './data/OSD_coco/annotations.json',
+
+    'has_gt': True,
+    'class_names': ('box')
+})
+
+
 coco2014_dataset = dataset_base.copy({
     'name': 'COCO 2014',
     
@@ -626,15 +641,15 @@ yolact_base_config = coco_base_config.copy({
     'name': 'yolact_base',
 
     # Dataset stuff
-    'dataset': coco2017_dataset,
-    'num_classes': len(coco2017_dataset.class_names) + 1,
+    'dataset': my_custom_dataset,
+    'num_classes': len(my_custom_dataset.class_names) + 1,
 
     # Image Size
-    'max_size': 550,
+    'max_size': 640,
     
     # Training params
     'lr_steps': (280000, 600000, 700000, 750000),
-    'max_iter': 800000,
+    'max_iter': 10000,
     
     # Backbone Settings
     'backbone': resnet101_backbone.copy({
